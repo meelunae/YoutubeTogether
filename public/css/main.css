@@ -1,10 +1,44 @@
 body {
   padding-top: 50px;
 }
-.starter-template {
-  padding: 40px 15px;
-  text-align: center;
+
+
+#player {
+  margin-top: 75px;
 }
-#headshot {
-    width: 500px;
+
+
+#controls {
+  display: inline-block;
+
+}
+
+#search {
+  width: 600px;
+  margin-top: 8px;
+}
+
+#searchbutton { 
+   margin-top: 8px;
+}
+#line {
+  margin-top: 10px;
+  float: left;
+  position: relative;
+  border-radius: 25px;
+  height: 6px;
+  background-color: black;
+  width: 500px;
+  margin-left:  10px;
+}
+
+#square {
+    margin-top: 13px;
+    margin-left: 150px;
+    position: absolute;
+    transform: translate(0, -50%);
+    width: 10px;
+    height: 10px;
+    background-color:  white;
+    border: 2px solid black;
 }
