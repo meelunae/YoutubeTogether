@@ -105,13 +105,6 @@
         });
       }
 
-      function searchPressed() {
-        var urlBeforeParsing = document.getElementById("search").value;
-        var parsedUrl = urlBeforeParsing.replace("https://www.youtube.com/watch?v=", '');
-        player.loadVideoById(parsedUrl)
-        player.playVideo();
-      }
-
       function updateProgress() {
         var progressBar = $('.progressBar');
         var progressSquare = $('#square');
@@ -146,7 +139,7 @@
       function initializeButtons() {
       var playButton = $('#playVideo');
       var pauseButton  = $('#pauseVideo');
-      var searchButton = $('#search');
+      var searchButton = $('#searchbutton');
 
       playButton.click(function() {
         mydata = {state: 'play', time: player.getCurrentTime()}; 
@@ -159,7 +152,9 @@
       });  
 
       searchButton.click(function() {
-        mydata = {state: 'changevideo', time: player.getCurrentTime()};
+        var urlBeforeParsing = document.getElementById("search").value;
+        var parsedUrl = urlBeforeParsing.replace("https://www.youtube.com/watch?v=", '')
+        mydata = {state: 'changevideo', video: parsedUrl};
       })
       
     }
@@ -172,6 +167,11 @@
       function pauseVideo() {
         if (playerStatus == YT.PlayerState.PLAYING)
          player.pauseVideo();
+      }
+
+      function changeVideo(videoID) {
+        player.loadVideoById(videoID);
+        player.playVideo();
       }
       
     </script>
@@ -188,7 +188,7 @@
           pauseVideo();
         }
         else if(msg.state == 'changevideo') {
-          searchPressed();
+          changeVideo(msg.video);
         }
       });
 
