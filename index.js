@@ -14,6 +14,7 @@ const path = require('path')
   io.on('connection', function(socket) {
     socket.on('event', function(msg){
       io.emit('event', msg);
+      console.log(msg);
     });
     console.log("A user connected!");
   });

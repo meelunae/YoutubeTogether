@@ -150,21 +150,23 @@
 
       playButton.click(function() {
         mydata = {state: 'play', time: player.getCurrentTime()}; 
-        socket.emit(mydata);
+        socket.emit('event',  mydata);
       });  
 
       pauseButton.click(function() {
         mydata = {state: 'pause', time: player.getCurrentTime()}; 
-        socket.emit(mydata);
+        socket.emit('event', mydata);
       });  
     }
 
 
       function playVideo() {
-        if( playerStatus == YT.PlayerState.PAUSED)  player.playVideo();
+        if(playerStatus == YT.PlayerState.PAUSED)
+          player.playVideo();
       }
       function pauseVideo() {
-        if (playerStatus == YT.PlayerState.PLAYING) player.pauseVideo();
+        if (playerStatus == YT.PlayerState.PLAYING)
+         player.pauseVideo();
       }
       
     </script>
@@ -174,8 +176,12 @@
       var socket = io();
 
       socket.on('event', function(msg) {
-        if(msg.state = 'play') playVideo();
-        else if(msg.state = 'pause') pauseVideo();
+        if(msg.state == 'play'){
+           playVideo(); 
+        }
+        else if(msg.state == 'pause'){ 
+          pauseVideo();
+        }
       });
 
     </script>
