@@ -34,8 +34,7 @@ body {
 
 #square {
     margin-top: 13px;
-    margin-left: 150px;
-    position: absolute;
+    position: relative;
     transform: translate(0, -50%);
     width: 10px;
     height: 10px;
