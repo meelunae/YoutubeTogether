@@ -146,7 +146,7 @@
       function initializeButtons() {
       var playButton = $('#playVideo');
       var pauseButton  = $('#pauseVideo');
-      
+      var searchButton = $('#search');
 
       playButton.click(function() {
         mydata = {state: 'play', time: player.getCurrentTime()}; 
@@ -157,6 +157,11 @@
         mydata = {state: 'pause', time: player.getCurrentTime()}; 
         socket.emit('event', mydata);
       });  
+
+      searchButton.click(function() {
+        mydata = {state: 'changevideo', time: player.getCurrentTime()};
+      })
+      
     }
 
 
@@ -181,6 +186,9 @@
         }
         else if(msg.state == 'pause'){ 
           pauseVideo();
+        }
+        else if(msg.state == 'changevideo') {
+          searchPressed();
         }
       });
 
