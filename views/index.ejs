@@ -161,11 +161,11 @@
       
     }
 
-
+      
       function playVideo() {
         if(playerStatus == YT.PlayerState.PAUSED)
           player.playVideo();
-      }
+        }
       function pauseVideo() {
         if (playerStatus == YT.PlayerState.PLAYING)
          player.pauseVideo();
@@ -185,9 +185,11 @@
       socket.on('event', function(msg) {
         if(msg.state == 'play'){
            playVideo(); 
+           player.seekTo(msg.time);
         }
         else if(msg.state == 'pause'){ 
           pauseVideo();
+          player.seekTo(msg.time);
         }
         else if(msg.state == 'changevideo') {
           changeVideo(msg.video);
