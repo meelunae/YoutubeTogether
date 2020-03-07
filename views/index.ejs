@@ -93,7 +93,16 @@
       //    after the API code downloads.
       var player;
       var justStartedPlaying = false
-
+      
+      //jQuery stuff
+      var playButton = $('#playVideo');
+      var pauseButton  = $('#pauseVideo');
+      var searchButton = $('#searchbutton');
+      var searchBar = $('#searchbar');
+      var progressBar = $('.progressBar');
+      var progressSquare = $('#square');
+      
+    
       function onYouTubeIframeAPIReady() {
         player = new YT.Player('player', {
           height: '480',
@@ -107,9 +116,6 @@
       }
 
       function updateProgress() {
-        var progressBar = $('.progressBar');
-        var progressSquare = $('#square');
-
         progressBar.click(function(event) {
           var divOffset = $(this).offset();
           console.log(divOffset);
@@ -137,12 +143,17 @@
       var playerStatus;
       function onPlayerStateChange(event) {
         playerStatus = event.data;
+        //only interested in 1 and 2 which are playing and paused cases
         switch(playerStatus) {
           case 1:
-            socket.emit('play');
+            mydata = {state: 'play', time: player.getCurrentTime()}
+            socket.emit('event', mydata);
+            console.log(playerStatus);
             break;
           case 2:
-            socket.emit('pause');
+            mydata = {state: 'pause', time: player.getCurrentTime()}
+            socket.emit('event', mydata);
+            console.log(playerStatus);
             break;
           default:
             console.log(playerStatus)
@@ -151,15 +162,14 @@
 
       }
 
-      $('#searchbar').keyup(function(event) {
+      searchBar.keyup(function(event) {
         if (event.keyCode === 13) {
-          $("#searchbutton").click();
+          searchButton.click();
         }
       });
+
       function initializeButtons() {
-      var playButton = $('#playVideo');
-      var pauseButton  = $('#pauseVideo');
-      var searchButton = $('#searchbutton');
+      
 
       playButton.click(function() {
         mydata = {state: 'play', time: player.getCurrentTime()}; 
@@ -209,8 +219,8 @@
       socket.on('event', function(msg) {
         if(msg.state == 'play'){
            playVideo(); 
-           player.seekTo(msg.time);
         }
+        
         else if(msg.state == 'pause'){ 
           pauseVideo();
           player.seekTo(msg.time);
