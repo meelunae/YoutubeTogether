@@ -35,8 +35,7 @@
           <a class="navbar-brand" href="#">Youtube Together!</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
-              <!--          <form class="form-inline"> -->
-
+          
         <div id="searchform" style="display:flex; flex-direction:row; flex-wrap:wrap;">
           <input class="form-control mr-sm-2" type="text" placeholder="Search..." id="searchbar">
           <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="searchbutton">
@@ -138,6 +137,18 @@
       var playerStatus;
       function onPlayerStateChange(event) {
         playerStatus = event.data;
+        switch(playerStatus) {
+          case 1:
+            socket.emit('play');
+            break;
+          case 2:
+            socket.emit('pause');
+            break;
+          default:
+            console.log(playerStatus)
+            break;
+        }
+
       }
 
       $('#searchbar').keyup(function(event) {
@@ -169,6 +180,7 @@
       
     }
 
+      var lastKnownTimestamp;
       
       function playVideo() {
         if(playerStatus == YT.PlayerState.PAUSED)
@@ -181,6 +193,7 @@
       
       function goToTime(time) {
         player.seekTo(time);
+        //lastKnownTimestamp = time;
       }
       function changeVideo(videoID) {
         player.loadVideoById(videoID);
@@ -209,6 +222,7 @@
            goToTime(msg.time);
         }*/
       });
+
 
     </script>
   </body>

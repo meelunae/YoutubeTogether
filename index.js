@@ -16,6 +16,7 @@ const path = require('path')
       io.emit('event', msg);
       console.log(msg);
     });
+    
     console.log("A user connected!");
   });
 
