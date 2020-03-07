@@ -13,13 +13,14 @@ body {
 
 }
 
-#search {
+#searchbar {
   width: 600px;
   margin-top: 8px;
 }
 
 #searchbutton { 
    margin-top: 8px;
+   margin-left: 2px;
 }
 #line {
   margin-top: 10px;
