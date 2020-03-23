@@ -4,7 +4,7 @@ var app = express();
 var server = app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 var io = require('socket.io').listen(server);
 const path = require('path')
-
+var currentTime;
 
   app.use(express.static(path.join(__dirname, 'public')))
   app.set('views', path.join(__dirname, 'views'))
@@ -16,7 +16,5 @@ const path = require('path')
       io.emit('event', msg);
       console.log(msg);
     });
-    
-    console.log("A user connected!");
+    console.log("A new user connected!");
   });
-
